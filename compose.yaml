@@ -12,6 +12,9 @@ services:
     init: true
     restart: unless-stopped
     logging:
+      # Pinned because the rotation options below aren't valid for every
+      # daemon default driver (e.g. journald).
+      driver: json-file
       options:
         max-size: 10m
         max-file: "3"
