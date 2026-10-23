@@ -1,0 +1,20 @@
+services:
+  miata-bot:
+    build: .
+    image: miata-bot
+    platform: linux/amd64
+    env_file: .env
+    volumes:
+      - miata-data:/app/data
+    # Chrome needs more than Docker's 64 MB default /dev/shm or tabs crash.
+    shm_size: 1gb
+    # Reaps the zombie processes Chrome leaves behind.
+    init: true
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+volumes:
+  miata-data:

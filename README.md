@@ -55,6 +55,25 @@ With cron instead of the built-in loop:
 0 * * * * cd /path/to/miata-bot && uv run miata-bot --once >> data/bot.log 2>&1
 ```
 
+## Docker
+
+```bash
+cp .env.example .env   # fill in the Telegram settings
+docker compose up -d --build
+docker compose logs -f
+```
+
+The image bundles Chrome and Xvfb and runs the bot in loop mode. The database and
+Chrome profile live in the `miata-data` volume, so they survive rebuilds. The image is
+amd64-only because Google Chrome doesn't ship for ARM. That rules out a Raspberry Pi
+or an ARM VPS.
+
+One-off commands work too:
+
+```bash
+docker compose run --rm miata-bot miata-bot --once --dry-run
+```
+
 ## Configuration (`.env`)
 
 | Variable | Default | |
