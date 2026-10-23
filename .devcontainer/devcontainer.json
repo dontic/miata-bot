@@ -1,0 +1,57 @@
+// devcontainer.json
+{
+    "name": "Miata Bot", // Name of the development container
+    "image": "mcr.microsoft.com/devcontainers/python:3.11-bookworm",
+    "containerUser": "vscode",
+    "containerEnv": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONUNBUFFERED": "1",
+        "CLAUDE_CONFIG_DIR": "/home/vscode/.claude"
+    },
+    "postCreateCommand": "bash .devcontainer/setup.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "mhutchie.git-graph",
+                "ms-python.black-formatter",
+                "stuart.unique-window-colors",
+                "stackbreak.comment-divider"
+            ],
+            "settings": {
+                // Black formatter settings
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "ms-python.black-formatter",
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter"
+                },
+                // Window colors settings
+                "workbench.colorCustomizations": {
+                    "activityBar.background": "#0C4B33",
+                    "titleBar.activeBackground": "#0C4B33",
+                    "titleBar.activeForeground": "#FBFBF6"
+                },
+                // Prevent json schema warnings
+                "json.schemas": [
+                    {
+                        "fileMatch": [
+                            "/package.json"
+                        ],
+                        "url": "https://json.schemastore.org/package",
+                        "schema": true
+                    }
+                ]
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/node:1": {},
+        "ghcr.io/anthropics/devcontainer-features/claude-code:1": {},
+        "ghcr.io/jsburckhardt/devcontainer-features/uv:1": {}
+    },
+    "mounts": [
+        "source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+        "source=gh-config-${devcontainerId},target=/home/vscode/.config/gh,type=volume"
+    ]    
+}
