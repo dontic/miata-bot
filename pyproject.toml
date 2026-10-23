@@ -1,0 +1,24 @@
+[project]
+name = "miata-bot"
+version = "0.1.0"
+description = "Watches theparking.eu for new listings and posts them to Telegram"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "nodriver>=0.50.6",
+    "pillow>=13.0.0",
+    "python-dotenv>=1.2.4",
+    "selectolax>=1.0.2",
+]
+
+[project.scripts]
+miata-bot = "miata_bot.__main__:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

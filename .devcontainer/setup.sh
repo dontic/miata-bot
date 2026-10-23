@@ -20,3 +20,15 @@ if [ ! -s "$CLAUDE_DIR/.claude.json" ]; then
   mkdir -p "$CLAUDE_DIR"
   echo '{}' > "$CLAUDE_DIR/.claude.json"
 fi
+
+# Scraper system deps: Chrome (driven by nodriver) and Xvfb (Cloudflare blocks
+# headless Chrome, so we run headful on a virtual display).
+if ! command -v google-chrome >/dev/null || ! command -v Xvfb >/dev/null; then
+  tmp_deb="$(mktemp --suffix=.deb)"
+  wget -qO "$tmp_deb" https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  sudo apt-get update -qq
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "$tmp_deb" xvfb
+  rm -f "$tmp_deb"
+fi
+
+uv sync

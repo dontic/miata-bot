@@ -47,8 +47,16 @@ coverage.xml
 
 # Logs and local data
 *.log
+data/
 *.sqlite3
 *.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Core dumps (Chrome writes these to the cwd when it crashes)
+/core
+core.[0-9]*
 
 # Editors
 # .vscode/settings.json is generated per-window by the unique-window-colors extension;
